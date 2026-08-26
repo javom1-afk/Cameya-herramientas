@@ -144,6 +144,7 @@
   .sbox.weak h3{color:var(--clay);}
   .sbox p{margin:0;font-size:13.5px;color:var(--ink);}
   .sbox .tip{display:block;margin-top:6px;color:var(--ink-soft);font-size:13px;}
+  .sbox .benchmark{display:block;margin-top:6px;color:var(--ink);font-size:13px;font-style:italic;}
   .empty-note{font-size:13.5px;color:var(--ink-soft);font-style:italic;}
 
   /* QUESTIONS */
@@ -286,7 +287,8 @@
       options:[
         {label:'Sí, la interacción sí se me convierte en clientes', score:3},
         {label:'Tengo bastante movimiento en redes pero pocos compran', score:2},
-        {label:'No tengo mucho movimiento todavía, así que no sabría decir', score:1}
+        {label:'No tengo mucho movimiento todavía, así que no sabría decir', score:1},
+        {label:'La verdad no sé, nunca lo he revisado', score:1, levelLabel:'Corriendo sin rumbo'}
       ]
     },
     {
@@ -295,7 +297,8 @@
       options:[
         {label:'La mayoría cierra', score:3},
         {label:'Unos cierran, otros se quedan pensándolo', score:2},
-        {label:'Casi nadie cierra aunque pregunte harto', score:1}
+        {label:'Casi nadie cierra aunque pregunte harto', score:1},
+        {label:'No sabría decir, no lo tengo registrado', score:1, levelLabel:'Corriendo sin rumbo'}
       ]
     },
     {
@@ -304,7 +307,8 @@
       options:[
         {label:'Me refieren y vuelven seguido', score:3},
         {label:'A veces refieren, pero igual tengo que seguir buscando', score:2},
-        {label:'Casi siempre tengo que salir a buscar desde cero', score:1}
+        {label:'Casi siempre tengo que salir a buscar desde cero', score:1},
+        {label:'No sabría decir, no le hago seguimiento a eso', score:1, levelLabel:'Corriendo sin rumbo'}
       ]
     },
     {
@@ -331,7 +335,8 @@
       options:[
         {label:'Sí, creo que se nota claro', score:3},
         {label:'Más o menos, pero no estoy seguro', score:2},
-        {label:'La verdad no, publico pero no sé si se entiende qué me hace diferente', score:1}
+        {label:'La verdad no, publico pero no sé si se entiende qué me hace diferente', score:1},
+        {label:'No sabría decir, nunca lo he preguntado ni revisado', score:1, levelLabel:'Corriendo sin rumbo'}
       ]
     },
     {
@@ -355,7 +360,13 @@
     regularidad:"Define un número fijo de publicaciones a la semana. Mejor pocas y constantes que muchas y esporádicas."
   };
 
+  var BENCHMARKS = {
+    interaccion:"Es algo que veo seguido. Muchos gimnasios y clubes tienen bastantes seguidores o likes, pero ni ellos mismos saben si eso se les convierte en clientes.",
+    medicion:"Esto es lo más común que veo. La mayoría de negocios de deporte y salud con los que hablo no miden nada de lo que hacen en redes o mercadeo."
+  };
+
   var LEVEL_NAME = {3:'Consolidado', 2:'En desarrollo', 1:'Inicial', 0:'Sin responder'};
+  var UNMEASURED_LABEL = 'Corriendo sin rumbo';
 
   var PROFILES = [
     {stage:1, min:7, max:10, name:'En la línea de salida',
@@ -541,8 +552,10 @@
     var scored = QUESTIONS.filter(function(q){ return q.area; });
     var results = scored.map(function(q){
       var ansIdx = answers[q.id];
-      var score = (ansIdx !== undefined) ? q.options[ansIdx].score : 0;
-      return {id:q.id, area:q.area, score:score};
+      var chosen = (ansIdx !== undefined) ? q.options[ansIdx] : null;
+      var score = chosen ? chosen.score : 0;
+      var levelLabel = chosen && chosen.levelLabel ? chosen.levelLabel : LEVEL_NAME[score];
+      return {id:q.id, area:q.area, score:score, levelLabel:levelLabel};
     });
 
     // Ordenar de más fuerte a más débil; sin responder al final
@@ -560,7 +573,7 @@
       name.textContent = r.area;
       var level = document.createElement('span');
       level.className = 'bar-level';
-      level.textContent = LEVEL_NAME[r.score];
+      level.textContent = r.levelLabel;
       labelRow.appendChild(name);
       labelRow.appendChild(level);
 
@@ -619,6 +632,12 @@
       weakOnes.forEach(function(r){
         var p = document.createElement('p');
         p.textContent = r.area;
+        if(BENCHMARKS[r.id]){
+          var bench = document.createElement('span');
+          bench.className = 'benchmark';
+          bench.textContent = BENCHMARKS[r.id];
+          p.appendChild(bench);
+        }
         if(TIPS[r.id]){
           var tip = document.createElement('span');
           tip.className = 'tip';
