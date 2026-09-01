@@ -235,7 +235,7 @@
     <h1>Diagnóstico rápido de comunicación y mercadeo</h1>
     <div class="progress-row no-print">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-label" id="progressLabel">0 de 8 respondidas</div>
+      <div class="progress-label" id="progressLabel">0 de 11 respondidas</div>
     </div>
   </header>
 
@@ -282,12 +282,12 @@
       ]
     },
     {
-      id:'interaccion', area:'Interacción que se convierte en clientes',
-      text:'Tu contenido genera movimiento (likes, comentarios, que te compartan), pero esa gente que interactúa, ¿termina comprando?',
+      id:'interaccion', area:'Contacto que se convierte en clientes',
+      text:'Cuando alguien se entera de ti (por redes, recomendación o donde sea) y te contacta, ¿ese contacto se te convierte en cliente?',
       options:[
-        {label:'Sí, la interacción sí se me convierte en clientes', score:3},
-        {label:'Tengo bastante movimiento en redes pero pocos compran', score:2},
-        {label:'No tengo mucho movimiento todavía, así que no sabría decir', score:1},
+        {label:'Sí, la mayoría de los contactos sí se convierten', score:3},
+        {label:'Tengo bastante contacto pero pocos compran', score:2},
+        {label:'No tengo mucho contacto todavía, así que no sabría decir', score:1},
         {label:'La verdad no sé, nunca lo he revisado', score:1, levelLabel:'Corriendo sin rumbo'}
       ]
     },
@@ -302,13 +302,22 @@
       ]
     },
     {
-      id:'retencion', area:'Clientes que vuelven o refieren',
-      text:'¿Tus clientes te refieren y vuelven, o normalmente tienes que estar buscando clientes nuevos todo el tiempo?',
+      id:'retencion', area:'Clientes que vuelven',
+      text:'¿Tus clientes que ya te compraron, vuelven a comprarte?',
       options:[
-        {label:'Me refieren y vuelven seguido', score:3},
-        {label:'A veces refieren, pero igual tengo que seguir buscando', score:2},
-        {label:'Casi siempre tengo que salir a buscar desde cero', score:1},
-        {label:'No sabría decir, no le hago seguimiento a eso', score:1, levelLabel:'Corriendo sin rumbo'}
+        {label:'Sí, vuelven seguido', score:3},
+        {label:'A veces vuelven', score:2},
+        {label:'Casi nunca vuelven, siempre es cliente nuevo', score:1},
+        {label:'No lo tengo registrado', score:1, levelLabel:'Corriendo sin rumbo'}
+      ]
+    },
+    {
+      id:'referidos_activos', area:'Referidos que buscas, no que esperas',
+      text:'¿Le pides directamente a tus clientes que te recomienden, o dependes de que pase solo?',
+      options:[
+        {label:'Sí, tengo una forma de pedirlo', score:3},
+        {label:'Lo pido a veces, sin sistema', score:2},
+        {label:'Nunca lo pido, si pasa es de casualidad', score:1}
       ]
     },
     {
@@ -331,37 +340,59 @@
     },
     {
       id:'propuesta', area:'Claridad de tu propuesta de valor',
-      text:'¿Alguien que ve tu perfil por primera vez entiende rápido qué haces y por qué elegirte a ti y no a otro?',
+      text:'Alguien que te conoce por primera vez (en redes, por referencia o en persona), ¿entiende rápido qué haces y por qué elegirte a ti?',
       options:[
         {label:'Sí, creo que se nota claro', score:3},
         {label:'Más o menos, pero no estoy seguro', score:2},
-        {label:'La verdad no, publico pero no sé si se entiende qué me hace diferente', score:1},
+        {label:'La verdad no, no sé si se entiende qué me hace diferente', score:1},
         {label:'No sabría decir, nunca lo he preguntado ni revisado', score:1, levelLabel:'Corriendo sin rumbo'}
       ]
     },
     {
-      id:'regularidad', area:'Constancia publicando',
-      text:'¿Publicas con regularidad o depende del ánimo o el tiempo que tengas esa semana?',
+      id:'consistencia', area:'Consistencia del mensaje',
+      text:'Cuando alguien pasa de conocerte (redes, recomendación) a hablar contigo directo (WhatsApp, llamada, en persona), ¿el mensaje es el mismo o cambia?',
+      options:[
+        {label:'Es consistente', score:3},
+        {label:'Cambia un poco pero la esencia se mantiene', score:2},
+        {label:'Cambia bastante, en persona hablo distinto a como me presento afuera', score:1},
+        {label:'Nunca lo he comparado', score:1, levelLabel:'Corriendo sin rumbo'}
+      ]
+    },
+    {
+      id:'prueba_social', area:'Prueba social visible',
+      text:'¿Alguien que no te conoce puede ver reseñas, testimonios o casos reales tuyos antes de decidir escribirte?',
+      options:[
+        {label:'Sí, los tengo visibles y los muestro', score:3},
+        {label:'Tengo algunos pero no los muestro activamente', score:2},
+        {label:'No tengo nada de esto todavía', score:1}
+      ]
+    },
+    {
+      id:'regularidad', area:'Constancia comunicando',
+      text:'¿Te comunicas con tus prospectos y clientes de forma constante (redes, WhatsApp, voz a voz, en persona) o depende del ánimo o el tiempo que tengas esa semana?',
       options:[
         {label:'Tengo una frecuencia que mantengo', score:3},
-        {label:'Publico, pero muy irregular', score:2},
-        {label:'Casi no publico o solo cuando se me ocurre', score:1}
+        {label:'Lo hago, pero muy irregular', score:2},
+        {label:'Casi no lo hago o solo cuando se me ocurre', score:1}
       ]
     }
   ];
 
   var TIPS = {
-    interaccion:"Agrega siempre una acción clara en tus publicaciones (ej. \"escríbeme al WhatsApp\"). No dejes que la gente solo mire y siga de largo.",
+    interaccion:"Agrega siempre una acción clara cuando alguien te contacta (ej. \"escríbeme al WhatsApp\"). No dejes que la gente solo mire y siga de largo.",
     cierre:"Ten listo un mensaje corto de respuesta rápida para cuando alguien pregunta, y respóndelo el mismo día.",
-    retencion:"Después de una venta, escribe a los 15-30 días para saber cómo le fue. Ahí nace el referido.",
+    retencion:"Después de una venta, escribe a los 15-30 días para saber cómo le fue el producto o servicio. Eso hace que vuelvan a comprarte.",
+    referidos_activos:"Después de cada venta, pide directamente la recomendación en el momento donde el cliente está más contento (justo después de un buen resultado). No esperes a que se acuerde solo.",
     pauta:"Antes de invertir más en pauta, calcula cuánto te cuesta hoy conseguir un cliente sin pautar. Así vas a poder comparar.",
     medicion:"Elige un solo número para revisar cada semana (ej. cuántos mensajes nuevos llegaron). No necesitas más para empezar.",
-    propuesta:"Escribe en una frase qué te hace diferente, y úsala igual en todos tus perfiles.",
-    regularidad:"Define un número fijo de publicaciones a la semana. Mejor pocas y constantes que muchas y esporádicas."
+    propuesta:"Escribe en una frase qué te hace diferente, y úsala igual en todos tus puntos de contacto.",
+    consistencia:"Escribe el mensaje central que usas en redes y practícalo para decirlo igual cuando hablas en persona o por WhatsApp. Que no se sientan como dos negocios distintos.",
+    prueba_social:"Pide a tus últimos 3 clientes contentos una frase corta de reseña y ponla visible en tu perfil o página. No necesitas más para empezar.",
+    regularidad:"Define una frecuencia fija para comunicarte con tu gente, sea publicando, mandando WhatsApp o llamando. Mejor poco y constante que mucho y esporádico."
   };
 
   var BENCHMARKS = {
-    interaccion:"Es algo que veo seguido. Muchos gimnasios y clubes tienen bastantes seguidores o likes, pero ni ellos mismos saben si eso se les convierte en clientes.",
+    interaccion:"Es algo que veo seguido. Muchos gimnasios y clubes tienen bastante contacto entrante, pero ni ellos mismos saben si eso se les convierte en clientes.",
     medicion:"Esto es lo más común que veo. La mayoría de negocios de deporte y salud con los que hablo no miden nada de lo que hacen en redes o mercadeo."
   };
 
@@ -369,13 +400,13 @@
   var UNMEASURED_LABEL = 'Corriendo sin rumbo';
 
   var PROFILES = [
-    {stage:1, min:7, max:10, name:'En la línea de salida',
+    {stage:1, min:10, max:14, name:'En la línea de salida',
      desc:'Vas arrancando. Es normal no tener ritmo todavía. Lo importante ahora es dar el primer paso bien dado, no correr rápido.'},
-    {stage:2, min:11, max:14, name:'Tomando impulso',
+    {stage:2, min:15, max:19, name:'Tomando impulso',
      desc:'Ya hay movimiento, pero falta que ese esfuerzo se convierta en resultados constantes. Tienes piezas sueltas, todavía no un sistema.'},
-    {stage:3, min:15, max:18, name:'En racha',
+    {stage:3, min:20, max:25, name:'En racha',
      desc:'Tienes buen momentum. Hay una o dos cosas puntuales frenándote de dar el salto: arréglalas y el resto empuja solo.'},
-    {stage:4, min:19, max:21, name:'Con ritmo de podio',
+    {stage:4, min:26, max:30, name:'Con ritmo de podio',
      desc:'Bases sólidas. El siguiente paso ya no es arreglar lo básico, sino escalar sabiendo que lo que hay detrás funciona.'}
   ];
 
